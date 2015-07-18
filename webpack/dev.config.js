@@ -4,7 +4,8 @@ var writeStats = require('./utils/writeStats');
 var notifyStats = require('./utils/notifyStats');
 var assetsPath = path.resolve(__dirname, '../static/dist');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var host = 'localhost';
+var host = process.env.HOST || 'localhost';
+var publicPathHost = process.env.PUBLIC_PATH_HOST || 'localhost';
 var port = parseInt(process.env.PORT) + 1 || 3001;
 
 module.exports = {
@@ -21,7 +22,7 @@ module.exports = {
     path: assetsPath,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: 'http://' + host + ':' + port + '/dist/'
+    publicPath: 'http://' + publicPathHost + ':' + port + '/dist/'
   },
   module: {
     loaders: [

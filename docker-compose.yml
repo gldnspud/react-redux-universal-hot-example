@@ -4,8 +4,13 @@ dev:
   volumes:
     - .:/code
   environment:
+    # Interface to listen on - use 0.0.0.0 so we can access from outside the container.
     - HOST=0.0.0.0
+    # Name of host that browser will connect to.
+    # - use 'localhost' if running docker directly on your workstation host.
+    # - use 'docker.dev' or similar if running docker inside boot2docker.
+    - PUBLIC_PATH_HOST=docker.dev
   ports:
-    - "3000:3000"
-    - "3001:3001"
-    - "3030:3030"
+    - "3000:3000"   # Main web server.
+    - "3001:3001"   # Webpack server.
+    - "3030:3030"   # API server.
