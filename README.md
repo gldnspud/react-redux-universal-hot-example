@@ -38,6 +38,16 @@ npm run build
 npm run start
 ```
 
+## Using docker
+
+If you have docker and docker-compose installed, you can also run the dev server inside a container. To allow mounting this repo as a volume, while keeping container and host `node_modules` contents separated, we rely on a symlink to `../node_modules`.
+
+```
+mkdir ../node_modules
+ln -s ../node_modules node_modules
+docker-compose up
+```
+
 ## Explanation
 
 What initally gets run is `babel.server.js`, which does little more than enable ES6 and ES7 awesomeness in the server-side node code. It then initiates `server.js`. In `server.js` we proxy any requests to `/api/*` to the [API server](#api-server), running at `localhost:3030`. All the data fetching calls from the client go to `/api/*`. Aside from serving the favicon and static content from `/static`, the only thing `server.js` does is initiate delegate rendering to `react-router`. At the bottom of `server.js`, we listen to port `3000` and initiate the API server.
